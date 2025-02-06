@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "name": "SAP Finance Upgrade",
+      "employeeId": 1,
+      "skillsGained": ["SAP HANA", "ABAP"]
+    },
+    {
+      "id": 2,
+      "name": "Fiori Implementation",
+      "employeeId": 2,
+      "skillsGained": ["SAP UI5", "OData"]
+    },
+    {
+      "id": 3,
+      "name": "SAP MM Integration",
+      "employeeId": 3,
+      "skillsGained": ["SAP MM", "SAP FI"]
+    },
+    {
+      "id": 4,
+      "name": "HANA Performance Optimization",
+      "employeeId": 4,
+      "skillsGained": ["SAP Basis", "Performance Tuning"]
+    }
+  ]
+  

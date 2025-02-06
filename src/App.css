@@ -1,0 +1,211 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8f9fc; /* Soft white background */
+  font-family: 'Roboto', sans-serif;
+  color: #4a235a; /* Deep purple text */
+}
+
+/* Header with PwC logo and Create Project button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.pwc-logo {
+  height: 70px;
+  width: auto;
+  margin-left: 20px;
+}
+
+/* Create Project Button */
+.create-project-btn {
+  background-color: #6a0dad;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.create-project-btn:hover {
+  background-color: #5a0ba5;
+}
+
+/* Main Content Layout */
+.content {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding-top: 120px;
+}
+
+/* Sidebar - Project List */
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: calc(100vh - 120px);
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #6a0dad;
+  border-radius: 10px;
+}
+
+/* Project Block Styling */
+.project-block {
+  background-color: #6a0dad;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: white;
+  font-weight: bold;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.project-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Prompt Window */
+.prompt-window {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Maximized Mode - Covers Full Right Side */
+.prompt-window.maximized {
+  width: calc(100% - 250px);
+  height: calc(100vh - 120px);
+  left: 250px;
+  top: 120px;
+  bottom: auto;
+  right: 0;
+  border-radius: 0;
+}
+
+/* Prompt Header */
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #6a0dad;
+  color: white;
+  font-weight: bold;
+}
+
+.prompt-actions button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* Prompt Body */
+.prompt-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prompt-body input,
+.prompt-body textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #6a0dad;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.prompt-body input::placeholder {
+  color: #999;
+}
+
+.prompt-body textarea {
+  resize: none;
+}
+
+/* Chips for skills */
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px solid #6a0dad;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 40px;
+}
+
+.chip {
+  background-color: #6a0dad;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.chip span {
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* Add Project Button */
+.add-project-btn {
+  background-color: #6a0dad;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-project-btn:hover {
+  background-color: #5a0ba5;
+}
