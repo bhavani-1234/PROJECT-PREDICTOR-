@@ -9,15 +9,18 @@ body {
   background-color: #f8f9fc; /* Soft white background */
   font-family: 'Roboto', sans-serif;
   color: #4a235a; /* Deep purple text */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Header with PwC logo and Create Project button */
-.header {
+/* Header with PwC logo and Create New Conversation button */
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  position: absolute;
+  padding: 10px;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -32,8 +35,8 @@ body {
   margin-left: 20px;
 }
 
-/* Create Project Button */
-.create-project-btn {
+/* Start Conversation Button */
+.start-conversation-btn {
   background-color: #6a0dad;
   color: white;
   padding: 10px 20px;
@@ -45,29 +48,40 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.create-project-btn:hover {
+.start-conversation-btn:hover {
   background-color: #5a0ba5;
 }
 
 /* Main Content Layout */
-.content {
+.container {
   display: flex;
+  flex-grow: 1;
   width: 100%;
-  height: 100vh;
-  padding-top: 120px;
+  margin-top: 80px; /* Adjusted to accommodate the fixed header */
+  height: calc(100vh - 80px); /* Adjusted for fixed header height */
 }
 
-/* Sidebar - Project List */
+/* Sidebar - Conversation Tabs (20% width) */
 .sidebar {
-  width: 250px;
-  background-color: #ffffff;
+  width: 20%;
+  background-color: #f4f6f9; /* Light grey background for subtle contrast */
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  height: calc(100vh - 120px);
-  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.05); /* Soft shadow to add depth */
   overflow-y: auto;
+  height: 100vh; /* Ensure the sidebar takes the full height */
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6a0dad; /* Deep purple color for the title */
+  margin-top: 20px; /* Space between the top and title */
+  margin-bottom: 20px; /* Space between the title and conversation list */
+  text-transform: uppercase; /* Make the title look more prominent */
+  text-align: center; /* Center the title text */
 }
 
 .sidebar::-webkit-scrollbar {
@@ -75,137 +89,192 @@ body {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background: #6a0dad;
+  background: #ccc;
   border-radius: 10px;
 }
 
-/* Project Block Styling */
-.project-block {
-  background-color: #6a0dad;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  color: white;
-  font-weight: bold;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.project-block:hover {
-  transform: translateY(-5px);
-  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5);
-}
-
-/* Prompt Window */
-.prompt-window {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Maximized Mode - Covers Full Right Side */
-.prompt-window.maximized {
-  width: calc(100% - 250px);
-  height: calc(100vh - 120px);
-  left: 250px;
-  top: 120px;
-  bottom: auto;
-  right: 0;
-  border-radius: 0;
-}
-
-/* Prompt Header */
-.prompt-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background: #6a0dad;
-  color: white;
-  font-weight: bold;
-}
-
-.prompt-actions button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-/* Prompt Body */
-.prompt-body {
-  padding: 20px;
+/* Conversation Tabs */
+.conversation-tabs {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%; /* Ensure the conversation tabs take full width */
 }
 
-.prompt-body input,
-.prompt-body textarea {
+.tab {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #6a0dad; /* Default purple text */
+}
+
+.tab:hover {
+  background-color: #f1f1f1;
+}
+
+.tab.active {
+  background-color: #6a0dad;
+  color: white;
+  font-weight: bold;
+}
+
+
+
+/* Right Content Area (80%) */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  overflow-y: hidden; /* Hide scrollbars here */
+}
+
+/* Conversation Container */
+.conversation-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+h2 {
+  color: #6a0dad;
+  margin-bottom: 10px;
+}
+
+/* Message Container */
+.conversation-messages {
+  flex: 1;
+  overflow-y: auto; /* Make this area scrollable */
+  padding-right: 10px; /* To avoid content touching the scrollbar */
+  margin-bottom: 20px;
+  max-height: calc(100vh - 200px); /* Adjust based on layout */
+}
+
+/* Message Styling */
+.message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message.user {
+  background-color: #6a0dad;
+  color: white;
+}
+
+.message.response {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Input Area Styling */
+.input-area {
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  z-index: 5;
   width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on top to separate input from messages */
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
   padding: 10px;
   border: 1px solid #6a0dad;
   border-radius: 5px;
   font-size: 16px;
-}
-
-.prompt-body input::placeholder {
-  color: #999;
-}
-
-.prompt-body textarea {
   resize: none;
 }
 
-/* Chips for skills */
-.chip-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  border: 1px solid #6a0dad;
-  padding: 10px;
-  border-radius: 5px;
-  min-height: 40px;
-}
-
-.chip {
+button {
   background-color: #6a0dad;
   color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-}
-
-.chip span {
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-/* Add Project Button */
-.add-project-btn {
-  background-color: #6a0dad;
-  color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 10px;
 }
 
-.add-project-btn:hover {
+button:hover {
   background-color: #5a0ba5;
+}
+
+button:disabled {
+  background-color: #b4a3c2;
+  cursor: not-allowed;
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.dialog-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px; /* Increased width */
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+.dialog-content h2 {
+  margin-bottom: 15px;
+  color: #6a0dad;
+}
+
+.dialog-content input, .dialog-content textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #6a0dad;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.dialog-content button {
+  background-color: #6a0dad;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.dialog-content button:hover {
+  background-color: #5a0ba5;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.cancel-btn:hover {
+  background-color: #bbb;
 }
