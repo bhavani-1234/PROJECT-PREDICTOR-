@@ -70,8 +70,10 @@ header {
   flex-direction: column;
   gap: 15px;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.05); /* Soft shadow to add depth */
+  height: 100%; 
+  max-height: calc(100vh - 80px); 
   overflow-y: auto;
-  height: 100vh; /* Ensure the sidebar takes the full height */
+  
 }
 
 .sidebar-title {
@@ -138,6 +140,7 @@ header {
   flex-direction: column;
   flex-grow: 1;
   padding: 20px;
+  overflow-y: auto;
 }
 
 h2 {

@@ -33,7 +33,7 @@ function App() {
       return;
     }
 
-    setLoading(true);
+    
     setError("");
 
     const conversationData = {
@@ -43,26 +43,18 @@ function App() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/start-conversation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(conversationData)
-      });
+      
 
-      const result = await response.json();
-
-      if (response.ok) {
+      //if (response.ok) {
         setConversations([...conversations, conversationData]);
         setCurrentConversationIndex(conversations.length);  // Set the first conversation as selected
         handleDialogClose(); // Close dialog on success
-      } else {
-        setError(result.message || "Failed to start conversation.");
-      }
+      
     } catch (err) {
       setError("Error connecting to server.");
     }
 
-    setLoading(false);
+   
   };
 
   const handleConversationClick = (index) => {
@@ -70,7 +62,9 @@ function App() {
   };
 
   // Function to send a message
-  const handleSendMessage = () => {
+  const handleSendMessage = async() => {
+    try{
+    setLoading(true);
     if (!messageText.trim()) {
       return; // Don't send if the message is empty
     }
@@ -85,12 +79,23 @@ function App() {
 
     // Add the user's message
     currentConversation.messages.push({ text: messageText, isUser: true });
+    const response = await fetch("http://localhost:3002/api/start-conversation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(currentConversation.messages)
+    });
 
+    const result = await response.json();
     // Example of adding a response (you can customize the response logic)
-    currentConversation.messages.push({ text: "This is a response from the system.", isUser: false });
+    currentConversation.messages.push({ text: JSON.stringify(result), isUser: false });
 
     setConversations(updatedConversations);
     setMessageText("");  // Clear the input field
+  } catch(error){
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
