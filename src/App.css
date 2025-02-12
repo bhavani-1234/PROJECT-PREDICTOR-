@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #f8f9fc; /* Soft white background */
+  background-color: #c5cbce; /* Soft white background */
   font-family: 'Roboto', sans-serif;
   color: #4a235a; /* Deep purple text */
   height: 100vh;
@@ -19,7 +19,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 4px;
   position: fixed;
   top: 0;
   left: 0;
@@ -37,19 +37,21 @@ header {
 
 /* Start Conversation Button */
 .start-conversation-btn {
-  background-color: #6a0dad;
+  background-color: #36979e;
   color: white;
+  width:15%;
   padding: 10px 20px;
   border: none;
-  border-radius: 20px;
+  border-radius: 16px;
   cursor: pointer;
   font-size: 16px;
-  margin-right: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .start-conversation-btn:hover {
-  background-color: #5a0ba5;
+  background-color: #244e52;
 }
 
 /* Main Content Layout */
@@ -57,21 +59,23 @@ header {
   display: flex;
   flex-grow: 1;
   width: 100%;
-  margin-top: 80px; /* Adjusted to accommodate the fixed header */
-  height: calc(100vh - 80px); /* Adjusted for fixed header height */
+  margin-top: 50px; /* Adjusted to accommodate the fixed header */
+  height: calc(100vh - 50px); /* Adjusted for fixed header height */
 }
 
 /* Sidebar - Conversation Tabs (20% width) */
 .sidebar {
   width: 20%;
-  background-color: #f4f6f9; /* Light grey background for subtle contrast */
-  padding: 20px;
+  background-color: #36979e; /* Light grey background for subtle contrast */
+  margin-top: 36px;
+  margin-left:6px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.05); /* Soft shadow to add depth */
   height: 100%; 
-  max-height: calc(100vh - 80px); 
+  max-height: calc(100vh - 94px);
   overflow-y: auto;
   
 }
@@ -79,7 +83,7 @@ header {
 .sidebar-title {
   font-size: 18px;
   font-weight: bold;
-  color: #6a0dad; /* Deep purple color for the title */
+  color: #f1f1f1; /* Deep purple color for the title */
   margin-top: 20px; /* Space between the top and title */
   margin-bottom: 20px; /* Space between the title and conversation list */
   text-transform: uppercase; /* Make the title look more prominent */
@@ -99,25 +103,26 @@ header {
 .conversation-tabs {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   width: 100%; /* Ensure the conversation tabs take full width */
 }
 
 .tab {
-  background-color: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #499da4;
+  padding: 12px;
+  margin: 6px;
+  border-radius: 12px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
-  color: #6a0dad; /* Default purple text */
+  color: white; /* Default purple text */
 }
 
 .tab:hover {
-  background-color: #f1f1f1;
+  background-color: #244e52;
 }
 
 .tab.active {
-  background-color: #6a0dad;
+  background-color: #244e52;
   color: white;
   font-weight: bold;
 }
@@ -129,7 +134,7 @@ header {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #c5cbce;
   overflow-y: hidden; /* Hide scrollbars here */
 }
 
@@ -139,13 +144,14 @@ header {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 20px;
+  padding: 10px;
+  padding-top:20px;
   overflow-y: auto;
+  height: 100%; /* Ensure the container takes full available height */
 }
 
 h2 {
-  color: #6a0dad;
-  margin-bottom: 10px;
+  color: white;
 }
 
 /* Message Container */
@@ -154,33 +160,57 @@ h2 {
   overflow-y: auto; /* Make this area scrollable */
   padding-right: 10px; /* To avoid content touching the scrollbar */
   margin-bottom: 20px;
+  margin-top: 20px;
   max-height: calc(100vh - 200px); /* Adjust based on layout */
 }
 
 /* Message Styling */
 .message {
   margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 16px;
 }
 
 .message.user {
-  background-color: #6a0dad;
+  background-color: #36979e;
   color: white;
+  width: auto; /* Dynamically adjust based on content */
+  min-width: 100px; /* Set a minimum width to ensure it's not too small */
+  max-width: 55%; /* Limit the width to 55% of the parent container */
+  align-self: flex-end; /* Align the message container to the right */
+  margin-bottom: 16px; /* Space between messages */
+  margin-left: auto; /* Push the message to the right */
+  padding: 16px;
+  border-radius: 10px;
+  display: flex; /* Use flex to control inner content */
+  justify-content: flex-end; /* Align content to the right */
+  text-align: right; /* Ensure text is aligned to the right */
 }
 
+.message.user:hover {
+  background-color: #244e52;
+}
+
+/* Response message style */
 .message.response {
   background-color: #f1f1f1;
   color: #333;
+  width: 55%; /* Occupy 60% of the width */
+  align-self: flex-start; /* Align to the left */
+  margin-bottom: 16px; /* Space between messages */
+  padding: 16px;
+  border-radius: 10px;
 }
 
 /* Input Area Styling */
 .input-area {
   position: sticky;
   bottom: 0;
-  background-color: #fff;
+  background-color: #36979e;
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  margin-bottom:0px;
+  border-radius: 16px;
   z-index: 5;
   width: 100%;
   padding-left: 10px;
@@ -190,27 +220,29 @@ h2 {
 
 textarea {
   width: 100%;
-  height: 100px;
+  height: 80px;
   padding: 10px;
-  border: 1px solid #6a0dad;
-  border-radius: 5px;
+  border: 1px solid #36979e;
+  border-radius: 16px;
   font-size: 16px;
   resize: none;
 }
 
 button {
-  background-color: #6a0dad;
+  background-color: #244e52;
   color: white;
+  width:20%;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 16px;
+  margin-left:1070px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
 }
 
 button:hover {
-  background-color: #5a0ba5;
+  background-color: #244e52;
 }
 
 button:disabled {
@@ -235,8 +267,8 @@ button:disabled {
 .dialog-content {
   background-color: white;
   padding: 30px;
-  border-radius: 10px;
-  width: 500px; /* Increased width */
+  border-radius: 16px;
+  width: 800px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   max-width: 100%;
@@ -244,32 +276,33 @@ button:disabled {
 
 .dialog-content h2 {
   margin-bottom: 15px;
-  color: #6a0dad;
+  color: #36979e;
 }
 
 .dialog-content input, .dialog-content textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 25px;
-  border: 1px solid #6a0dad;
-  border-radius: 5px;
+  border: 1px solid #36979e;
+  border-radius: 8px;
   font-size: 16px;
 }
 
 .dialog-content button {
-  background-color: #6a0dad;
+  background-color: #36979e;
   color: white;
   padding: 12px 25px;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 15px;
+  margin-left: 0;
   width: 100%;
 }
 
 .dialog-content button:hover {
-  background-color: #5a0ba5;
+  background-color: #244e52;
 }
 
 .cancel-btn {
@@ -279,5 +312,12 @@ button:disabled {
 }
 
 .cancel-btn:hover {
-  background-color: #bbb;
+  background-color: #244e52;
+}
+
+.paragraph-styling {
+  text-align: center;
+  margin-top: 30px;
+  color:#244e52;
+  font-size:20px;
 }

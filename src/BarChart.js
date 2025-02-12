@@ -1,30 +1,52 @@
-import React from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 
-const data = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 500 },
-  { name: "Apr", value: 700 },
-  { name: "May", value: 600 },
-  { name: "Jun", value: 800 },
-];
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChartComponent = () => {
-  return (
-    <div className="w-full h-96 p-4 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-xl font-semibold text-center mb-4">Monthly Sales Data</h2>
-      <ResponsiveContainer width="100%" height="80%">
-        <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="value" fill="#8884d8" radius={[10, 10, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
+function BarChart({ data, handleClose }) {
+  const firstObj = data[0];
+  const key = Object.keys(firstObj)[0] || "name";
+  const value = Object.keys(firstObj)[1] || "value";
+	return (
+		<div className="App">
+			<h1>EMPLOYEES BAR CHART</h1>
+			<div style={{ maxWidth: "650px" }}>
+				<Bar
+					data={{
+						labels: [...data.map((item) => item[key])],
+						datasets: [
+							{
+								label: `${key} vs ${value}`,
+								data: [...data.map((item) => item[value])],
+								backgroundColor: [],
+								borderColor: [...data.map(() => `#${Math.floor(Math.random() * 16777215).toString(16)}`)],
+								borderWidth: 0.5,
+							},
+						],
+					}}
+					height={400}
+					options={{
+						maintainAspectRatio: false,
+						scales: {
+							y: {
+								beginAtZero: true,
+							},
+						},
+						plugins: {
+							legend: {
+								labels: {
+									fontSize: 15,
+								},
+							},
+						},
+					}}
+				/>
+			</div>
+      <button onClick={handleClose} style={{ marginBottom: "20px" }}>
+        Close Chart
+      </button>
+		</div>
+	);
+}
 
-export default BarChartComponent;
+export default BarChart;

@@ -1,30 +1,41 @@
 import React from "react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
+import './LineGraph.css'; // Import the CSS file for styling
 
-const data = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 500 },
-  { name: "Apr", value: 700 },
-  { name: "May", value: 600 },
-  { name: "Jun", value: 800 },
-];
+function LineGraph({ data, handleClose }) {
+  const firstObj = data[0];
+  const key = Object.keys(firstObj)[0] || "name";
+  const value = Object.keys(firstObj)[1] || "value";
 
-const LineChartComponent = () => {
   return (
-    <div className="w-full h-96 p-4 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-xl font-semibold text-center mb-4">Monthly Sales Data</h2>
-      <ResponsiveContainer width="100%" height="80%">
-        <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+    <div className="linegraph-container">
+      <h1 className="linegraph-text-heading">Line Chart Using Rechart</h1>
+      {/* Close button styled with specific class */}
+      <ResponsiveContainer width="100%" aspect={3} className="linegraph-chart-wrapper">
+        <LineChart data={data} margin={{ right: 300 }}>
+          <CartesianGrid className="linegraph-recharts-cartesian-grid" />
+          <XAxis className="linegraph-recharts-xAxis" dataKey={key} interval={"preserveStartEnd"} />
+          <YAxis className="linegraph-recharts-yAxis" />
+          <Legend />
           <Tooltip />
-          <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} dot={{ r: 5 }} />
+          <Line dataKey={key} stroke="black" activeDot={{ r: 8 }} />
+          <Line dataKey={value} stroke="red" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
+      <button onClick={handleClose}>
+        Close Chart
+      </button>
     </div>
   );
-};
+}
 
-export default LineChartComponent;
+export default LineGraph;

@@ -1,0 +1,63 @@
+/* Container for the line chart */
+.linegraph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  /* Heading style */
+  .linegraph-text-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+    text-align: center;
+  }
+  
+  /* Style the chart wrapper to make it responsive */
+  .linegraph-chart-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative; /* Makes the chart wrapper the reference point for absolute positioning of the button */
+  }
+  
+  /* Style the close button specific to the line chart */
+  .linegraph-close-btn {
+    position: absolute;
+    top: 10px; /* Adjust positioning inside the chart */
+    right: 10px; /* Adjust positioning inside the chart */
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: #333;
+    z-index: 1; /* Make sure the button stays on top of the chart */
+  }
+  
+  .linegraph-close-btn:hover {
+    color: red; /* Change color on hover */
+  }
+  
+  /* Optional: styling for the chart's grid and axes */
+  .linegraph-recharts-cartesian-grid line {
+    stroke: #ddd; /* Lighter grid lines */
+  }
+  
+  .linegraph-recharts-xAxis,
+  .linegraph-recharts-yAxis {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666; /* Lighter text for axes labels */
+  }
+  
+  .linegraph-recharts-tooltip-item {
+    font-size: 14px;
+  }
+  
+  .linegraph-recharts-tooltip-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  

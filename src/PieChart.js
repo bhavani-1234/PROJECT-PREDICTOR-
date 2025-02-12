@@ -1,40 +1,46 @@
-import React from "react";
-import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
+import React, { useState } from "react";
+import { PieChart, Pie, Tooltip, Cell } from "recharts";
 
-const data = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 500 },
-  { name: "Apr", value: 700 },
-  { name: "May", value: 600 },
-  { name: "Jun", value: 800 },
-];
+const PieChartComponent = ({ data, handleClose }) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
 
-const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#a4de6c", "#d0ed57"];
+  const COLORS = [...data.map(() => `#${Math.floor(Math.random() * 16777215).toString(16)}`)];
 
-const PieChartComponent = () => {
+  const firstObj = data[0];
+  const key = Object.keys(firstObj)[0] || "skill";
+  const value = Object.keys(firstObj)[1] || "number_of_employees";
+
+  data = data.map((item) => ({
+    name: item[key],
+    students: item[value],
+  }));
+
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
+
   return (
-    <div className="w-full h-96 p-4 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-xl font-semibold text-center mb-4">Monthly Sales Data</h2>
-      <ResponsiveContainer width="100%" height="80%">
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            outerRadius={100}
-            fill="#8884d8"
-            dataKey="value"
-            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+    <div>
+      <h1>Pie Chart</h1>
+      <PieChart width={700} height={700}>
+        <Pie
+          activeIndex={activeIndex}
+          data={data}
+          dataKey="students"
+          outerRadius={250}
+          fill="green"
+          onMouseEnter={onPieEnter}
+          style={{ cursor: "pointer", outline: "none" }}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+      </PieChart>
+      <button onClick={handleClose} style={{ marginBottom: "20px" }}>
+        Close Chart
+      </button>
     </div>
   );
 };
